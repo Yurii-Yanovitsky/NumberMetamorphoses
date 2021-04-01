@@ -19,14 +19,13 @@ namespace LimestoneDigital.NumberMetamorphoses
                 throw new ArgumentOutOfRangeException();
             }
 
-            if (!int.TryParse(value, out _))
+            if (value == "" || value.Any(ch => ch < '1' || ch > '7'))
             {
                 throw new ArgumentException();
             }
 
-            int[] numbers = value.Union(value)
-                .Select(ch => ch - '0')
-                .OrderBy(c => c).ToArray();
+            char[] numbers = value.Distinct().ToArray();
+            Array.Sort(numbers);
 
             StringBuilder builder = new StringBuilder();
             bool isNext = false;
